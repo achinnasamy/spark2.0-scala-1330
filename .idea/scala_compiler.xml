@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaCompilerConfiguration">
+    <profile name="Maven 1" modules="spark2.0-scala-1330">
+      <parameters>
+        <parameter value="-nobootcp" />
+      </parameters>
+    </profile>
+  </component>
+</project>
