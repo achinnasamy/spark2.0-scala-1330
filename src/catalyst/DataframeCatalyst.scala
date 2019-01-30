@@ -7,6 +7,7 @@ object DataframeCatalyst {
 
   def main(args : Array[String]) = {
 
+    
     val config = new SparkConf
     config.setMaster("local")
     config.setAppName("JOB")
