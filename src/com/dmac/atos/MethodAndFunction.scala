@@ -9,5 +9,8 @@ object MethodAndFunction {
     val f = () => {
       "RETURN"
     }
+
+
+    println("Test")
   }
 }
