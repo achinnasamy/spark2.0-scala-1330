@@ -1,43 +1,56 @@
 package fp
 
-import org.apache.spark.sql.{SparkSession, functions}
-import org.apache.spark.storage.StorageLevel
-import org.apache.spark.{Partitioner, SparkConf, SparkContext}
+
+
+import structuredstreaming.IBMDataElucidator
+
+import scala.io._
+
 
 object IBMReckoner {
 
-  // Lazy Loading of RDD
-  // RDD are immutable
-  def main(args : Array[String]) = {
-
-    val ss = SparkSession.builder()
-                .master("local[*]")
-                .appName("IBMWatsonJOB")
-                .getOrCreate()
+  // Functional Language
+  // Concise Language - Less Verbose
+  // Type Inferences
+  // Expressive
+  def main(args : Array[String]): Unit = {
 
 
-    val toDoubleConverter = functions.udf[Double, String](_.toDouble)
+    import ImplicitClassesFeature._
 
-    val toDataValidation = functions.udf[String,String]({ each =>
-      if (each.equals("1400"))
-        "ASA-1400"
-      else "INVALID"
+    val input = "DATA"
+
+    input.letMoonBeAddedToString()
+    input.ibmProcessesStringInHyperledger()
+
+    val dataList = List("nosql", "data")
+
+    dataList.map(each => each.toUpperCase)
+
+
+    dataList.map(new Function[String,String] {
+      override def apply(v1: String): String = {
+        v1.toUpperCase
+      }
     })
-
-    val authDF = ss.read.option("header", "true")
-                    .csv("/Users/dharshekthvel/ac/code/scalatrainingintellij/data/auth.csv")
-
-
-    authDF.printSchema()
-
-    val modifiedDF = authDF.withColumn("asa", toDataValidation(authDF.col("asa")))
-
-    modifiedDF.show()
-
-    authDF.write.parquet("out.parquet")
 
 
 
   }
 
+
+}
+
+object ImplicitClassesFeature {
+
+  implicit class AddFunctionalityToString(val input: String)
+  {
+
+    def letMoonBeAddedToString() : String =
+      input.concat("MOON" )
+
+    def ibmProcessesStringInHyperledger() = {
+
+    }
+  }
 }
