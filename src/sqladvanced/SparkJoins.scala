@@ -1,0 +1,5 @@
+package sqladvanced
+
+object SparkJoins {
+
+}

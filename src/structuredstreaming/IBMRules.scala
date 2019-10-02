@@ -1,0 +1,5 @@
+package structuredstreaming
+
+object IBMRules {
+
+}

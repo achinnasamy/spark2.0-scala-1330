@@ -1,0 +1,5 @@
+package fp
+
+class PersistTextFile {
+
+}

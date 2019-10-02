@@ -1,0 +1,5 @@
+package catalyst
+
+object Client {
+
+}

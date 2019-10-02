@@ -1,0 +1,5 @@
+package fp
+
+trait KafkaLogger {
+
+}

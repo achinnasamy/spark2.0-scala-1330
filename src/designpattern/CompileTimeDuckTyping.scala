@@ -1,0 +1,5 @@
+package designpattern
+
+object CompileTimeDuckTyping {
+
+}

@@ -1,0 +1,5 @@
+package typesystem
+
+object CovariantContravariantInvariant {
+
+}

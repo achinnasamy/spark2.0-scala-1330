@@ -1,0 +1,5 @@
+package fp
+
+object DataCollectorJOB {
+
+}
