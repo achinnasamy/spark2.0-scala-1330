@@ -6,7 +6,6 @@ import org.apache.spark.sql.functions
 
 object DataReckoner1 {
 
-
   // Driver Program
   def main(args : Array[String]): Unit  = {
 

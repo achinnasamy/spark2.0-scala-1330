@@ -1,40 +1,35 @@
 package com.dmac.dv
 
-class IBMDataReckoner {
+
+import org.apache.spark.sql.{SparkSession, functions}
+import org.apache.spark.storage.StorageLevel
+import org.apache.spark.{SparkConf, SparkContext}
 
 
+object IBMDataReckoner {
 
-  def processData(data: String, id : Int) : String  = {
-
-    import scala.io._
-    val list = List("")
-
-    val integerList = List(1,2,3,4,5)
-
-    list.foreach(each => println(each))
-    list.foreach(println)
-    list.foreach(println(_))
+  def main(args : Array[String]) = {
 
 
-    list.map(each => each.toUpperCase)
-    list.map(_.toUpperCase)
-
-    integerList.reduce((x,y) => x + y)
-    integerList.reduce(_+_)
-
-
-    println(data)
-    println(id)
-
-    "BLOCK_CHAIN"
-  }
-
-  def processDB(data: String) : String  = {
-
-    println(data)
+    // UDF - User Defined Function
+    // Hive - Pig
+    import org.apache.spark.sql.streaming.OutputMode
+    val ss = SparkSession.builder()
+                        .appName("IBMJOB")
+                        .master("local[*]").getOrCreate()
 
 
-    "BLOCK_CHAIN"
+    val eachLineStream = ss.readStream.format("socket")
+          .option("host","localhost")
+          .option("port", "4568").load()
+
+
+    val streamWriter = eachLineStream.writeStream
+                          .outputMode(OutputMode.Append())
+                          .format("console")
+
+    streamWriter.start().awaitTermination()
+
   }
 
 }
