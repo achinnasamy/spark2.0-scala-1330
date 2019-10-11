@@ -1,56 +1,50 @@
 package fp
 
-
-
-import structuredstreaming.IBMDataElucidator
-
-import scala.io._
+import org.apache.spark.sql.SparkSession
 
 
 object IBMReckoner {
 
-  // Functional Language
-  // Concise Language - Less Verbose
-  // Type Inferences
-  // Expressive
   def main(args : Array[String]): Unit = {
 
+    import org.apache.spark.{SparkConf, SparkContext}
 
-    import ImplicitClassesFeature._
-
-    val input = "DATA"
-
-    input.letMoonBeAddedToString()
-    input.ibmProcessesStringInHyperledger()
-
-    val dataList = List("nosql", "data")
-
-    dataList.map(each => each.toUpperCase)
+    val sparkSession = SparkSession.builder()
+                                   .appName("EnelJob")
+                                   .master("local[*]")
+                                   .getOrCreate()
 
 
-    dataList.map(new Function[String,String] {
-      override def apply(v1: String): String = {
-        v1.toUpperCase
-      }
-    })
+    val sc = sparkSession.sparkContext
 
+    val textFileRDD = sc.textFile("/Users/dharshekthvel/ac/code/scalatrainingintellij/data/auth.csv")
+
+    val pipeRDD = textFileRDD.pipe("ls -lart")
+    //pipeRDD.foreach(each => println(each))
+
+    textFileRDD.sample(true, 0.2)
+
+    textFileRDD.distinct()
+
+    textFileRDD.union(textFileRDD)
+
+    textFileRDD.intersection(textFileRDD)
+
+    textFileRDD.cartesian(textFileRDD)
+
+    textFileRDD.repartition(30)
+    textFileRDD.coalesce(30) // better to use this
+
+
+    textFileRDD.foreach(each => println(each))
+    //textFileRDD.foreach(println)
+    //textFileRDD.foreach(println(_))
+
+    sc.stop()
 
 
   }
-
-
 }
 
-object ImplicitClassesFeature {
+case class AuthDTO(refID: String, aua:String, asa : String)
 
-  implicit class AddFunctionalityToString(val input: String)
-  {
-
-    def letMoonBeAddedToString() : String =
-      input.concat("MOON" )
-
-    def ibmProcessesStringInHyperledger() = {
-
-    }
-  }
-}
