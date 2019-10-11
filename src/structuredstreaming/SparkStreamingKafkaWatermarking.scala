@@ -48,4 +48,4 @@ object SparkStreamingKafkaWatermarking {
 
 }
 
-case class KafkaData(time: Timestamp, key: String, value: Double)
+//case class KafkaData(time: Timestamp, key: String, value: Double)

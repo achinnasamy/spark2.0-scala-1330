@@ -1,5 +1,15 @@
 package structuredstreaming
 
-object IBMRules {
+object IBMRules2 {
 
+
+  def Rule1Syntactic = {
+
+  }
+
+
+
+  def Rule2Syntactic = {
+
+  }
 }

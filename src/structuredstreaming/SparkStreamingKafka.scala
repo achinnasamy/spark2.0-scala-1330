@@ -8,7 +8,6 @@ object SparkStreamingKafka {
 
   def main(args : Array[String]) = {
 
-
     val sparkSession = SparkSession .builder
                                     .appName("KafkaJOB")
                                     .master("local[*]")
@@ -21,13 +20,14 @@ object SparkStreamingKafka {
     val ds = sparkSession .readStream
                           .format("kafka")
                           .option("kafka.bootstrap.servers", "localhost:9092")
-                          .option("subscribe", "HDFS-TOPIC")
+                          .option("subscribe", "WATSON-TOPIC")
                           .load
 
+    ds rdd
 
     //val values = ds.toDF("value", "timestamp")
 
-    val query = ds.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
+    val query = ds//.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
                   .writeStream
                   .outputMode("append")
                   .format("console").start

@@ -6,6 +6,7 @@ object StructuredSocketStreaming {
 
   def main(args : Array[String]) = {
 
+
     import org.apache.log4j.{Level, Logger}
     Logger.getLogger("org").setLevel(Level.OFF)
 
@@ -15,16 +16,27 @@ object StructuredSocketStreaming {
 
 
     val df = sparkSession.readStream
-      .format("socket")
-      .option("host","localhost")
-      .option("port", "7777").load();
+                      .format("socket")
+                      .option("host","localhost")
+                      .option("port", "5555").load();
+
+
+    val sdf = df.selectExpr("CAST(value AS STRING)")
+
+    val query = sdf.writeStream.outputMode("append")
+      .format("console").start
+
+
+    query.awaitTermination
+    
+
+
 
     //        StreamingQuery query = df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)").writeStream().outputMode("append")
     //                .format("console").start();
 
 
-    val query = df.writeStream.outputMode("append")
-                  .format("kafka").start
+
 
 
     //netcat
@@ -33,7 +45,7 @@ object StructuredSocketStreaming {
     // nc -lk 7777
 
 
-    query.awaitTermination
+
 
   }
 }

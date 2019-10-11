@@ -1,9 +1,11 @@
 package com.dmac
 
-import org.scalatest.check.Checkers
 
 
-class EnelTestSuite extends Checkers {
+class EnelTestSuite {
 
+  def fetchData() = {
+    "DATA_FETCHED"
+  }
 
 }

@@ -111,3 +111,62 @@ object SQLSparkGroupBy {
   }
 
 }
+
+
+package object PACKAGE_OBJECT {
+
+
+  val CASE_FACTOR = "CASE_FACTOR"
+
+  def echo(message : String) = {
+    println(message)
+  }
+
+
+  implicit def enrichStringWithMethod(s : String) = {
+    s.concat("_DATA_ENRICHED")
+  }
+
+  XML("DATA").printFileName()
+
+
+
+  def functionWithOptionParameter(data : String, id : Int, chain : Option[String] = None) = {
+    println(data + " - " + id + " - " + chain )
+  }
+
+  /**
+    *
+    * trait as a enum.
+    * Make it as a sealed trait and extend case object
+    */
+  sealed trait FileFactory
+
+  case object XMLFILE extends FileFactory
+  case object CSVFILE extends FileFactory
+
+  def ^ (ff : FileFactory) : String = {
+    ff match {
+      case XMLFILE => "XmlFile"
+      case CSVFILE => "CsvFile"
+      case _ => "AllFiles"
+    }
+  }
+
+
+}
+
+
+
+/** Case classes can extend Classes and Abstract Classes **/
+abstract class Factory {
+
+  def printFileName() = {
+
+  }
+
+}
+
+
+case class XML(data : String) extends Factory
+case class CSV(data : String) extends Factory

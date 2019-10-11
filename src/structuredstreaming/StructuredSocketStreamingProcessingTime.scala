@@ -23,7 +23,7 @@ object StructuredSocketStreamingProcessingTime {
 
     val query = df.writeStream
                   .outputMode("append")
-                  .trigger(Trigger.ProcessingTime("60 seconds"))
+                  .trigger(Trigger.ProcessingTime("1 seconds"))
                   .format("console").start
 
 
